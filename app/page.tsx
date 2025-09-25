@@ -1,103 +1,84 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { VideoIcon, LogInIcon } from "lucide-react"; // If you don't use lucide, remove or replace
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const router = useRouter();
+  const [meetingCode, setMeetingCode] = useState("");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const handleCreateMeeting = () => {
+    router.push("/settings");
+  };
+
+  const handleJoinMeeting = () => {
+    router.push("/settings");
+  };
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center bg-black px-4">
+      <div className="text-center mb-12 animate-fade-in group cursor-pointer">
+        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-400 mb-4 drop-shadow-lg">
+          Video Calls & Meetings for Everyone
+        </h1>
+
+        <p className="text-gray-400 text-xl font-medium mb-4">
+          with{" "}
+          <span className="text-orange-500 font-semibold">
+            powerful Whiteboard collaboration
+          </span>
+          .
+        </p>
+
+        <svg
+          viewBox="0 0 600 30"
+          preserveAspectRatio="none"
+          className="mx-auto h-8 w-full max-w-4xl text-orange-500 transition-colors duration-300"
+        >
+          <path
+            d="M0 15 
+         C40 10, 80 25, 120 15 
+         S200 10, 240 20 
+         Q280 25, 320 15 
+         T400 15 
+         C440 10, 480 30, 520 15 
+         S580 10, 600 20"
+            fill="transparent"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            className="group-hover:text-yellow-400"
+          />
+        </svg>
+      </div>
+
+      <div className="flex flex-col gap-6 w-full max-w-md">
+        <button
+          onClick={handleCreateMeeting}
+          className="bg-orange-500 shadow-lg shadow-orange-500/30 text-black font-semibold py-3 rounded-xl hover:bg-orange-400 hover:scale-105 transition duration-200 flex items-center justify-center gap-2"
+        >
+          <VideoIcon className="w-5 h-5" />
+          Create a Meeting
+        </button>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <input
+            type="text"
+            placeholder="Enter meeting code"
+            value={meetingCode}
+            onChange={(e) => setMeetingCode(e.target.value.toUpperCase())}
+            className="flex-1 px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 placeholder-gray-500"
+          />
+          <button
+            onClick={handleJoinMeeting}
+            className="bg-orange-500 text-black px-6 py-3 rounded-xl hover:bg-orange-400 hover:scale-105 transition duration-200 flex items-center justify-center gap-2"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <LogInIcon className="w-5 h-5" />
+            Join
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+    </main>
   );
 }
